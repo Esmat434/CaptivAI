@@ -41,7 +41,7 @@ services:
     build: .
     image: celery
     container_name: celery
-    command: celery -A EmailAssistant worker --loglevel=INFO
+    command: celery -A CaptivAI worker --loglevel=INFO
     volumes:
       - static_volume:/src/app/staticfiles
       - media_volume:/src/app/media
