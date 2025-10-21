@@ -80,6 +80,22 @@ class UserUpdateForm(forms.ModelForm):
         if CustomUser.objects.filter(email=email).exclude(id=self.instance.pk).exists():
             raise forms.ValidationError("This email already taken.")
     
+class LoginForm(forms.Form):
+    username = forms.CharField(
+        max_length=150,
+        widget=forms.TextInput(attrs={'class':'form-control','placeholder':'Enter your username','required':True}),
+    )
+    password = forms.CharField(
+        max_length=128,
+        widget=forms.PasswordInput(attrs={'class':'form-control','placeholder':'Enter your password','required':True})
+    )
+
+    def clean_username(self):
+        username = self.cleaned_data['username']
+        if not CustomUser.objects.filter(username=username).exists():
+            raise forms.ValidationError("Your username or password is invalid.")
+        return username
+
 class ProfileForm(forms.ModelForm):
     class Meta:
         model = CustomUser
