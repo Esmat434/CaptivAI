@@ -13,12 +13,12 @@ class UserCreationForm(forms.ModelForm):
             "username","email","first_name","last_name","avatar","birth_date","password"
         )
         widgets = {
-            'username':forms.TextInput(attrs={'class':'form-control','placeholder':'Enter Your Username','required':True}),
-            'email':forms.EmailInput(attrs={'class':'form-control','placeholder':'Enter Your Email', 'required':True}),
-            'first_name':forms.TextInput(attrs={'class':'form-control','placeholder':'Enter Your First Name.'}),
-            'last_name':forms.TextInput(attrs={'class':'form-control','placeholder':'Enter Your Last Name.'}),
+            'username':forms.TextInput(attrs={'class':'form-control','placeholder':'john_doe_99','required':True}),
+            'email':forms.EmailInput(attrs={'class':'form-control','placeholder':'you@example.com', 'required':True}),
+            'first_name':forms.TextInput(attrs={'class':'form-control','placeholder':'John'}),
+            'last_name':forms.TextInput(attrs={'class':'form-control','placeholder':'Doe'}),
             'avatar':forms.FileInput(attrs={'class':'form-control'}),
-            'birth_date':forms.DateInput(attrs={'class':'form-control','required':True}),
+            'birth_date':forms.DateInput(attrs={'class':'form-control','placeholder':'1990/01/01','required':True}),
             'password':forms.PasswordInput(attrs={'class':'form-control','placeholder':'Enter Your Password','required':True})
         }
 
@@ -65,7 +65,7 @@ class UserUpdateForm(forms.ModelForm):
             'email':forms.EmailInput(attrs={'class':'form-control','placeholder':'Enter Your Email', 'required':True}),
             'first_name':forms.TextInput(attrs={'class':'form-control','placeholder':'Enter Your First Name.'}),
             'last_name':forms.TextInput(attrs={'class':'form-control','placeholder':'Enter Your Last Name.'}),
-            'avatar':forms.FileInput(attrs={'class':'form-control'}),
+            'avatar':forms.FileInput(attrs={'class':'form-control','id':'avatarUpload'}),
             'birth_date':forms.DateInput(attrs={'class':'form-control','required':True}),
         }
     
@@ -79,15 +79,16 @@ class UserUpdateForm(forms.ModelForm):
         email = self.cleaned_data['email']
         if CustomUser.objects.filter(email=email).exclude(id=self.instance.pk).exists():
             raise forms.ValidationError("This email already taken.")
+        return email
     
 class LoginForm(forms.Form):
     username = forms.CharField(
         max_length=150,
-        widget=forms.TextInput(attrs={'class':'form-control','placeholder':'Enter your username','required':True}),
+        widget=forms.TextInput(attrs={'class':'form-control form-control-lg','placeholder':'Enter your username','required':True,'id':'username'}),
     )
     password = forms.CharField(
         max_length=128,
-        widget=forms.PasswordInput(attrs={'class':'form-control','placeholder':'Enter your password','required':True})
+        widget=forms.PasswordInput(attrs={'class':'form-control form-control-lg','placeholder':'Enter your password','required':True,'id':'password'})
     )
 
     def clean_username(self):
@@ -100,5 +101,14 @@ class ProfileForm(forms.ModelForm):
     class Meta:
         model = CustomUser
         fields = (
-            "username","email","first_name","last_name","avatar","birth_date"
+            "username","email","first_name","last_name","avatar","birth_date","date_joined"
         )
+        widgets = {
+            'username':forms.TextInput(attrs={'class':'info-value','placeholder':'Enter Your Username','required':True}),
+            'email':forms.EmailInput(attrs={'class':'info-value','placeholder':'Enter Your Email', 'required':True}),
+            'first_name':forms.TextInput(attrs={'class':'info-value','placeholder':'Enter Your First Name.'}),
+            'last_name':forms.TextInput(attrs={'class':'info-value','placeholder':'Enter Your Last Name.'}),
+            'avatar':forms.FileInput(attrs={'class':'info-value'}),
+            'birth_date':forms.DateInput(attrs={'class':'info-value'}),
+            'date_joined':forms.DateInput(attrs={'class':'info-value'})
+        }
