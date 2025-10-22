@@ -18,7 +18,7 @@ class RegisterView(LogoutRequiredMixin,View):
         return render(request,'accounts/register.html',{'form':form})
 
     def post(self,request):
-        form = UserCreationForm(request.POST)
+        form = UserCreationForm(request.POST,request.FILES)
         if form.is_valid():
             form.save()
             messages.success(request,"Your registration was successfully.")
@@ -46,6 +46,11 @@ class LoginView(LogoutRequiredMixin,View):
         messages.error(request,'Your username or password is invalid.')
         return render(request,'accounts/login.html',{'form':form})
 
+class LogoutView(LoginRequiredMixin,View):
+    def post(self, request):
+        logout(request)
+        return redirect("/")
+
 class ProfileView(LoginRequiredMixin,View):
     def get(self, request):
         form = ProfileForm(instance=request.user)
@@ -57,11 +62,12 @@ class ProfileUpdateView(LoginRequiredMixin,View):
         return render(request,'accounts/profile_update.html',{'form':form})
     
     def post(self, request):
-        form = UserUpdateForm(instance=request.user, data=request.POST)
+        form = UserUpdateForm(instance=request.user, data=request.POST, files=request.FILES)
         if form.is_valid():
             form.save()
             messages.success(request,'Your profile successfully updated.')
             return redirect('accounts:profile')
-        messages.error(request,'Your data was invalid.')
+        else:
+            messages.error(request,'Your data was invalid.')
         return render(request,'accounts/profile_update.html',{'form':form})
 
