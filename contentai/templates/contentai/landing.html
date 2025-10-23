@@ -1,0 +1,341 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI Content Pro - Generate Viral Content 10x Faster</title>
+
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+    
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+    
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"/>
+    
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+    <style>
+        /* === ⭐️ استایل‌های اصلی از داشبورد (مشترک) ⭐️ === */
+        
+        /* --- Base & Animated Background --- */
+        body {
+            font-family: 'Poppins', sans-serif;
+            color: #e0e0e0;
+            background: linear-gradient(-45deg, #0f0c29, #302b63, #24243e, #1c3a5e);
+            background-size: 400% 400%;
+            animation: gradientBG 15s ease infinite;
+            min-height: 100vh;
+            overflow-x: hidden;
+        }
+
+        @keyframes gradientBG {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+
+        /* --- Glassmorphism Card Style --- */
+        .card-glass {
+            background: rgba(255, 255, 255, 0.05);
+            backdrop-filter: blur(15px);
+            -webkit-backdrop-filter: blur(15px);
+            border-radius: 16px;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.3);
+            transition: all 0.3s ease;
+        }
+        .card-glass:hover {
+            box-shadow: 0 12px 40px 0 rgba(0, 0, 0, 0.37);
+            transform: translateY(-5px);
+        }
+
+        /* --- Header / Gradient Text --- */
+        .text-gradient {
+            background: linear-gradient(90deg, #89f7fe, #66a6ff);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            text-fill-color: transparent;
+            font-weight: 700;
+        }
+
+        /* --- Primary Button --- */
+        .btn-primary {
+            background: linear-gradient(90deg, #5f72be, #9b6dd0);
+            border: none;
+            border-radius: 8px;
+            font-weight: 600;
+            padding: 0.8rem 1.5rem;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(155, 109, 208, 0.3);
+        }
+        .btn-primary:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 6px 20px rgba(155, 109, 208, 0.4);
+        }
+
+        /* === ⭐️ استایل‌های جدید مخصوص این صفحه ⭐️ === */
+
+        /* --- Navigation Bar --- */
+        .navbar-glass {
+            background: rgba(15, 12, 41, 0.7); /* کمی تیره‌تر برای خوانایی */
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+            transition: background 0.3s ease;
+        }
+        .navbar-brand {
+            font-weight: 700;
+            font-size: 1.5rem;
+        }
+        .navbar .btn-outline-light {
+            border-color: rgba(255, 255, 255, 0.5);
+            color: #fff;
+        }
+        .navbar .btn-outline-light:hover {
+            background: #fff;
+            color: #302b63;
+        }
+        .navbar .btn {
+            border-radius: 8px;
+            font-weight: 500;
+        }
+
+        /* --- Hero Section --- */
+        .hero-section {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            min-height: 90vh; /* 90% of the viewport height */
+            padding-top: 80px; /* Offset for the fixed navbar */
+        }
+        .hero-section .display-3 {
+            font-weight: 700;
+            margin-bottom: 1rem;
+        }
+        .hero-section .lead {
+            font-size: 1.25rem;
+            color: #ccc;
+            max-width: 700px;
+            margin: 0 auto 2rem auto;
+        }
+
+        /* --- Features Section --- */
+        .features-section {
+            padding: 5rem 0;
+        }
+        .features-section .card-glass {
+            padding: 2rem;
+            text-align: center;
+            height: 100%; /* Make cards same height */
+        }
+        .features-section .icon-box {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+        }
+
+        /* --- How It Works Section --- */
+        .how-it-works-section {
+            padding: 5rem 0;
+            /* A subtle overlay to differentiate */
+            background: rgba(0, 0, 0, 0.1); 
+        }
+        .step {
+            text-align: center;
+        }
+        .step .step-number {
+            display: inline-block;
+            width: 60px;
+            height: 60px;
+            line-height: 60px;
+            border-radius: 50%;
+            border: 2px solid #89f7fe;
+            color: #89f7fe;
+            font-weight: 600;
+            font-size: 1.5rem;
+            margin-bottom: 1rem;
+        }
+
+        /* --- CTA Section --- */
+        .cta-section {
+            padding: 6rem 0;
+            text-align: center;
+        }
+
+        /* --- Footer --- */
+        footer {
+            padding: 2rem 0;
+            background: rgba(0, 0, 0, 0.2);
+            text-align: center;
+            color: #aaa;
+        }
+
+        /* --- Scroll Animation Utility --- */
+        /* Class to hide elements for scroll animation */
+        .scroll-animate {
+            opacity: 0;
+            transition: opacity 0.5s ease-out, transform 0.5s ease-out;
+            transform: translateY(20px);
+        }
+    </style>
+</head>
+<body>
+
+    <nav class="navbar navbar-expand-lg navbar-glass fixed-top">
+        <div class="container">
+            <a class="navbar-brand text-gradient" href="#">
+                <i class="bi bi-stars"></i> AI Content Pro
+            </a>
+            
+            <div class="ms-auto">
+                <a href="{% url 'accounts:login' %}" class="btn btn-outline-light me-2">Login</a>
+                <a href="{% url 'accounts:register' %}" class="btn btn-primary">Register</a>
+            </div>
+        </div>
+    </nav>
+
+    <section class="hero-section">
+        <div class="container px-3">
+            <h1 class="display-3 text-gradient animate__animated animate__fadeInDown">
+                Create Viral Social Media Content <br> 10x Faster with AI
+            </h1>
+            <p class="lead animate__animated animate__fadeInUp" data-wow-delay="0.2s">
+                Stop staring at a blank page. Generate high-engagement captions, trending hashtags, and stunning image ideas for Instagram, TikTok, and LinkedIn in seconds.
+            </p>
+            <a href="{% url 'accounts:register' %}" class="btn btn-primary btn-lg animate__animated animate__pulse" data-wow-delay="0.4s">
+                Get Started for Free
+                <i class="bi bi-arrow-right-short"></i>
+            </a>
+        </div>
+    </section>
+
+    <section class="features-section">
+        <div class="container px-3">
+            <h2 class="text-center mb-5 scroll-animate">Everything You Need to Go Viral</h2>
+            
+            <div class="row g-4">
+                <div class="col-md-4 scroll-animate">
+                    <div class="card-glass">
+                        <div class="icon-box text-gradient">
+                            <i class="bi bi-magic"></i>
+                        </div>
+                        <h3 class="fw-500">AI Caption Writer</h3>
+                        <p class="text-white-50">Generate creative and platform-specific captions in any tone (professional, witty, friendly) instantly.</p>
+                    </div>
+                </div>
+                <div class="col-md-4 scroll-animate" data-animation-delay="0.2s">
+                    <div class="card-glass">
+                        <div class="icon-box text-gradient">
+                            <i class="bi bi-hash"></i>
+                        </div>
+                        <h3 class="fw-500">Trending Hashtags</h3>
+                        <p class="text-white-50">Our AI analyzes current trends to provide you with relevant hashtags that boost your post's reach.</p>
+                    </div>
+                </div>
+                <div class="col-md-4 scroll-animate" data-animation-delay="0.4s">
+                    <div class="card-glass">
+                        <div class="icon-box text-gradient">
+                            <i class="bi bi-bar-chart-line-fill"></i>
+                        </div>
+                        <h3 class="fw-500">Engagement Analysis</h3>
+                        <p class="text-white-50">Get an instant score on your post's potential impact and receive tips on how to improve it.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="how-it-works-section">
+        <div class="container px-3">
+            <h2 class="text-center mb-5 scroll-animate">Get Started in 3 Simple Steps</h2>
+            <div class="row g-4">
+                <div class="col-md-4 scroll-animate">
+                    <div class="step">
+                        <div class="step-number">1</div>
+                        <h4 class="fw-500">Enter Your Topic</h4>
+                        <p class="text-white-50">Just provide a keyword or a simple idea, like "productivity hacks" or "new product launch".</p>
+                    </div>
+                </div>
+                <div class="col-md-4 scroll-animate" data-animation-delay="0.2s">
+                    <div class="step">
+                        <div class="step-number">2</div>
+                        <h4 class="fw-500">Let the AI Work</h4>
+                        <p class="text-white-50">Our agent generates captions, hashtags, and image prompts tailored to your chosen platform.</p>
+                    </div>
+                </div>
+                <div class="col-md-4 scroll-animate" data-animation-delay="0.4s">
+                    <div class="step">
+                        <div class="step-number">3</div>
+                        <h4 class="fw-500">Post & Analyze</h4>
+                        <p class="text-white-50">Copy your new content, post it, and watch your engagement grow. It's that simple.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="cta-section">
+        <div class="container px-3">
+            <h2 class="display-5 fw-600 scroll-animate">
+                Ready to Supercharge Your Social Media?
+            </h2>
+            <p class="lead text-white-50 my-4 scroll-animate">
+                Join thousands of creators and marketers building their brands faster.
+            </p>
+            <a href="#" class="btn btn-primary btn-lg scroll-animate">
+                Start Creating Now
+                <i class="bi bi-stars ms-2"></i>
+            </a>
+        </div>
+    </section>
+
+    <footer>
+        <div class="container">
+            <p>&copy; 2025 AI Content Pro. All Rights Reserved.</p>
+        </div>
+    </footer>
+
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            
+            // Intersection Observer برای انیمیشن‌های اسکرول
+            const scrollElements = document.querySelectorAll('.scroll-animate');
+
+            const elementInView = (el, dividend = 1) => {
+                const elementTop = el.getBoundingClientRect().top;
+                return (
+                    elementTop <= (window.innerHeight || document.documentElement.clientHeight) / dividend
+                );
+            };
+
+            const displayScrollElement = (element) => {
+                element.style.opacity = '1';
+                element.style.transform = 'translateY(0)';
+                // دریافت تاخیر انیمیشن از data attribute
+                const delay = element.dataset.animationDelay || '0s';
+                element.style.transitionDelay = delay;
+                // اضافه کردن کلاس انیمیشن از Animate.css
+                element.classList.add('animate__animated', 'animate__fadeInUp');
+            };
+
+            const handleScrollAnimation = () => {
+                scrollElements.forEach((el) => {
+                    if (elementInView(el, 1.25)) { // 1.25 means trigger when 25% of the element is in view
+                        displayScrollElement(el);
+                    }
+                });
+            };
+
+            // اجرای اولیه و سپس در هر اسکرول
+            handleScrollAnimation();
+            window.addEventListener('scroll', handleScrollAnimation);
+
+        });
+    </script>
+</body>
+</html>

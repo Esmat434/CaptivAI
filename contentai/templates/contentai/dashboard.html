@@ -1,0 +1,534 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>🚀 AI Content Generator Pro</title>
+
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+    
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+    
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"/>
+    
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+    <style>
+        /* --- Base & Animated Background --- */
+        body {
+            font-family: 'Poppins', sans-serif;
+            color: #e0e0e0;
+            background: linear-gradient(-45deg, #0f0c29, #302b63, #24243e, #1c3a5e);
+            background-size: 400% 400%;
+            animation: gradientBG 15s ease infinite;
+            min-height: 100vh;
+            overflow-x: hidden;
+        }
+
+        @keyframes gradientBG {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+
+        .container {
+            max-width: 900px;
+        }
+
+        /* --- Glassmorphism Card Style --- */
+        .card-glass {
+            background: rgba(255, 255, 255, 0.05);
+            backdrop-filter: blur(15px);
+            -webkit-backdrop-filter: blur(15px);
+            border-radius: 16px;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.3);
+            transition: all 0.3s ease;
+        }
+        .card-glass:hover {
+            box-shadow: 0 12px 40px 0 rgba(0, 0, 0, 0.37);
+            transform: translateY(-5px);
+        }
+
+        /* --- Header --- */
+        .text-gradient {
+            background: linear-gradient(90deg, #89f7fe, #66a6ff);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            text-fill-color: transparent;
+            font-weight: 700;
+        }
+
+        /* --- Form Elements --- */
+        .form-control, .form-select {
+            background-color: rgba(0, 0, 0, 0.2);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            color: #fff;
+            border-radius: 8px;
+            padding: 0.75rem 1rem;
+        }
+        .form-control::placeholder { color: #aaa; }
+        .form-control:focus, .form-select:focus {
+            background-color: rgba(0, 0, 0, 0.3);
+            color: #fff;
+            border-color: #66a6ff;
+            box-shadow: 0 0 0 0.25rem rgba(102, 166, 255, 0.25);
+        }
+
+        /* --- Primary Button --- */
+        .btn-primary {
+            background: linear-gradient(90deg, #5f72be, #9b6dd0);
+            border: none;
+            border-radius: 8px;
+            font-weight: 600;
+            font-size: 1.1rem;
+            padding: 0.8rem 1.5rem;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(155, 109, 208, 0.3);
+        }
+        .btn-primary:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 6px 20px rgba(155, 109, 208, 0.4);
+        }
+
+        /* === ⭐️ CSS جدید برای منو === */
+
+        /* --- Hamburger Menu Button --- */
+        .hamburger-btn {
+            position: fixed;
+            top: 1.5rem;
+            right: 1.5rem;
+            z-index: 1045; /* Below offcanvas (1050) */
+            padding: 0.5rem 0.8rem;
+            font-size: 1.5rem;
+            border-radius: 10px;
+            /* Re-using button gradient */
+        }
+
+        /* --- Offcanvas Glass Styling --- */
+        .offcanvas-glass {
+            background: rgba(15, 12, 41, 0.85); /* Darker base for better readability */
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border-left: 1px solid rgba(255, 255, 255, 0.1) !important;
+            box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.3);
+            color: #e0e0e0;
+        }
+        .offcanvas-header {
+            border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+        }
+        .offcanvas-body .nav-link.offcanvas-nav-link {
+            color: #fff;
+            font-size: 1.1rem;
+            font-weight: 500;
+            padding: 0.75rem 1rem;
+            margin-bottom: 0.5rem;
+            border-radius: 8px;
+            transition: all 0.2s ease;
+        }
+        .offcanvas-body .nav-link.offcanvas-nav-link:hover {
+            background: rgba(255, 255, 255, 0.1);
+        }
+        .offcanvas-body .nav-link.logout-link {
+            color: #ff8b8b; /* Light red for logout */
+        }
+        .offcanvas-body .nav-link.logout-link:hover {
+            background: rgba(255, 139, 139, 0.1);
+            color: #ffc2c2;
+        }
+        /* === ⭐️ پایان CSS جدید === */
+
+
+        /* --- Results Tabs --- */
+        .nav-tabs {
+            border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+        }
+        .nav-tabs .nav-link {
+            border: none;
+            color: #ccc;
+            border-radius: 8px 8px 0 0;
+            background: transparent;
+        }
+        .nav-tabs .nav-link.active {
+            background-color: rgba(255, 255, 255, 0.1);
+            color: #fff;
+            font-weight: 600;
+            border-bottom: 2px solid #89f7fe;
+        }
+        .tab-content {
+            background-color: rgba(255, 255, 255, 0.05);
+            border-radius: 0 0 16px 16px;
+            padding: 1.5rem;
+            border-top: none;
+        }
+
+        /* --- Hashtags --- */
+        .hashtag-badge {
+            background: rgba(102, 166, 255, 0.15);
+            color: #c4d9ff;
+            border: 1px solid rgba(102, 166, 255, 0.3);
+            padding: 0.4em 0.8em;
+            margin: 0.25rem;
+            border-radius: 20px;
+            font-weight: 400;
+            display: inline-block;
+            transition: all 0.2s ease;
+        }
+        .hashtag-badge:hover {
+            background: rgba(102, 166, 255, 0.3);
+            color: #fff;
+        }
+
+        /* --- Copy Button --- */
+        .btn-copy {
+            background-color: rgba(255, 255, 255, 0.15);
+            color: #fff;
+            border: none;
+            font-size: 0.9rem;
+        }
+        .btn-copy:hover {
+            background-color: rgba(255, 255, 255, 0.3);
+            color: #fff;
+        }
+
+        /* --- Analysis Section --- */
+        .analysis-score {
+            font-size: 2.5rem;
+            font-weight: 700;
+            color: #89f7fe;
+        }
+        .progress {
+            height: 10px;
+            background-color: rgba(0, 0, 0, 0.3);
+            border-radius: 10px;
+        }
+        .progress-bar {
+            background: linear-gradient(90deg, #66a6ff, #89f7fe);
+        }
+
+        /* --- Utilities --- */
+        #loadingSpinner, #resultsCard {
+            display: none;
+        }
+    </style>
+</head>
+<body>
+
+    <button class="btn btn-primary hamburger-btn" type="button" data-bs-toggle="offcanvas" data-bs-target="#userMenu" aria-controls="userMenu">
+        <i class="bi bi-list"></i>
+    </button>
+
+    <div class="offcanvas offcanvas-end offcanvas-glass" tabindex="-1" id="userMenu" aria-labelledby="userMenuLabel">
+        <div class="offcanvas-header">
+            <h5 class="offcanvas-title text-gradient" id="userMenuLabel">
+                <i class="bi bi-person-circle me-2"></i>
+                Your Account
+            </h5>
+            <button type="button" class="btn-close btn-close-white" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+        </div>
+        <div class="offcanvas-body">
+            <ul class="navbar-nav justify-content-end flex-grow-1 pe-3">
+                <li class="nav-item">
+                    <a class="nav-link offcanvas-nav-link" href="#">
+                        <i class="bi bi-person-fill me-2"></i> Profile
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link offcanvas-nav-link" href="#">
+                        <i class="bi bi-gear-fill me-2"></i> Settings
+                    </a>
+                </li>
+                
+                <li><hr class="dropdown-divider" style="border-top: 1px solid rgba(255, 255, 255, 0.2);"></li>
+
+                <li class="nav-item">
+                    <a class="nav-link offcanvas-nav-link logout-link" href="#">
+                        <i class="bi bi-box-arrow-right me-2"></i> Logout
+                    </a>
+                </li>
+            </ul>
+        </div>
+    </div>
+    <div class="container my-5 px-3">
+        
+        <header class="text-center mb-5">
+            <h1 class="display-4 text-gradient">
+                <i class="bi bi-stars"></i>
+                AI Content Pro
+            </h1>
+            <p class="lead" style="color: #ccc;">
+                Generate & Analyze viral content for Instagram, TikTok, and LinkedIn.
+            </p>
+        </header>
+
+        <div class="card-glass shadow-lg mb-5" id="formCard">
+            <div class="card-body p-4 p-md-5">
+                <form id="contentForm">
+                    <div class="mb-3">
+                        <label for="topicInput" class="form-label fs-5 fw-500">
+                            <i class="bi bi-lightbulb-fill"></i>
+                            Your Topic or Keyword
+                        </label>
+                        <input type="text" class="form-control form-control-lg" id="topicInput" placeholder="e.g., 'Digital Marketing Trends' or 'Productivity Hacks'" required>
+                    </div>
+
+                    <div class="row g-3 mb-4">
+                        <div class="col-md-6">
+                            <label for="platformSelect" class="form-label">
+                                <i class="bi bi-share-fill"></i>
+                                Target Platform
+                            </label>
+                            <select class="form-select" id="platformSelect">
+                                <option value="instagram">Instagram</option>
+                                <option value="tiktok">TikTok</option>
+                                <option value="linkedin">LinkedIn</option>
+                            </select>
+                        </div>
+                        <div class="col-md-6">
+                            <label for="toneSelect" class="form-label">
+                                <i class="bi bi-emoji-smile-fill"></i>
+                                Content Tone
+                            </label>
+                            <select class="form-select" id="toneSelect">
+                                <option value="professional">Professional</option>
+                                <option value="friendly">Friendly & Casual</option>
+                                <option value="witty">Witty & Humorous</option>
+                                <option value="persuasive">Persuasive</option>
+                            </select>
+                        </div>
+                    </div>
+                    
+                    <div class="d-grid">
+                        <button type="submit" class="btn btn-primary" id="generateButton">
+                            <span id="buttonText">
+                                <i class="bi bi-magic"></i>
+                                Generate Content
+                            </span>
+                            <span class="spinner-border spinner-border-sm" id="buttonSpinner" style="display: none;" role="status" aria-hidden="true"></span>
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+
+        <div id="loadingSpinner" class="text-center my-5">
+            <div class="spinner-border text-primary" style="width: 3rem; height: 3rem; color: #89f7fe !important;" role="status">
+                <span class="visually-hidden">Loading...</span>
+            </div>
+            <p class="mt-3 fs-5">
+                The AI is crafting your content... Please wait ✨
+            </p>
+        </div>
+
+        <div id="resultsCard" class="card-glass mt-5">
+            <div class="card-header border-0 p-4" style="background: transparent;">
+                <ul class="nav nav-tabs" id="resultsTabs" role="tablist">
+                    <li class="nav-item" role="presentation">
+                        <button class="nav-link active" id="caption-tab" data-bs-toggle="tab" data-bs-target="#caption-content" type="button" role="tab">
+                            <i class="bi bi-file-text-fill"></i>
+                            ✍️ Caption
+                        </button>
+                    </li>
+                    <li class="nav-item" role="presentation">
+                        <button class="nav-link" id="hashtags-tab" data-bs-toggle="tab" data-bs-target="#hashtags-content" type="button" role="tab">
+                            <i class="bi bi-hash"></i>
+                            🧠 Hashtags
+                        </button>
+                    </li>
+                    <li class="nav-item" role="presentation">
+                        <button class="nav-link" id="image-tab" data-bs-toggle="tab" data-bs-target="#image-content" type="button" role="tab">
+                            <i class="bi bi-image-fill"></i>
+                            🎨 Image Prompt
+                        </button>
+                    </li>
+                    <li class="nav-item" role="presentation">
+                        <button class="nav-link" id="analysis-tab" data-bs-toggle="tab" data-bs-target="#analysis-content" type="button" role="tab">
+                            <i class="bi bi-bar-chart-line-fill"></i>
+                            📊 Analysis
+                        </button>
+                    </li>
+                </ul>
+            </div>
+            
+            <div class="tab-content" id="resultsTabsContent">
+                
+                <div class="tab-pane fade show active" id="caption-content" role="tabpanel">
+                    <button class="btn btn-copy btn-sm float-end" data-copy-target="#captionOutput">
+                        <i class="bi bi-clipboard"></i> Copy
+                    </button>
+                    <h5 class="mb-3">Generated Caption:</h5>
+                    <p class="lh-lg" id="captionOutput" style="white-space: pre-wrap;"></p>
+                </div>
+
+                <div class="tab-pane fade" id="hashtags-content" role="tabpanel">
+                    <button class="btn btn-copy btn-sm float-end" data-copy-target="#hashtagsOutput" data-copy-type="hashtags">
+                        <i class="bi bi-clipboard"></i> Copy All
+                    </button>
+                    <h5 class="mb-3">Trending Hashtags:</h5>
+                    <div id="hashtagsOutput">
+                    </div>
+                </div>
+
+                <div class="tab-pane fade" id="image-content" role="tabpanel">
+                    <button class="btn btn-copy btn-sm float-end" data-copy-target="#imagePromptOutput">
+                        <i class="bi bi-clipboard"></i> Copy
+                    </button>
+                    <h5 class="mb-3">Prompt for Midjourney / DALL-E:</h5>
+                    <p class="p-3 rounded" id="imagePromptOutput" style="background-color: rgba(0,0,0,0.3); font-family: 'Courier New', Courier, monospace;"></p>
+                </div>
+
+                <div class="tab-pane fade" id="analysis-content" role="tabpanel">
+                    <h5 class="mb-3">Engagement Potential Analysis:</h5>
+                    <div class="row align-items-center">
+                        <div class="col-md-4 text-center">
+                            <div class="analysis-score" id="analysisScore">0%</div>
+                            <div class="text-muted">Engagement Score</div>
+                        </div>
+                        <div class="col-md-8">
+                            <div class="progress my-3">
+                                <div id="analysisProgressBar" class="progress-bar progress-bar-striped progress-bar-animated" role="progressbar" style="width: 0%;" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100"></div>
+                            </div>
+                            <ul id="analysisTips" class="list-unstyled">
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+    <div class="toast-container position-fixed bottom-0 end-0 p-3">
+        <div id="copyToast" class="toast align-items-center text-bg-success border-0" role="alert" aria-live="assertive" aria-atomic="true">
+            <div class="d-flex">
+                <div class="toast-body fw-500">
+                    <i class="bi bi-check-circle-fill me-2"></i>
+                    Content copied to clipboard!
+                </div>
+                <button type="button" class="btn-close btn-close-white me-2 m-auto" data-bs-dismiss="toast" aria-label="Close"></button>
+            </div>
+        </div>
+    </div>
+
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+
+            // Get core elements
+            const contentForm = document.getElementById('contentForm');
+            const loadingSpinner = document.getElementById('loadingSpinner');
+            const resultsCard = document.getElementById('resultsCard');
+            const copyToastEl = document.getElementById('copyToast');
+            const copyToast = new bootstrap.Toast(copyToastEl);
+            
+            // Button elements
+            const generateButton = document.getElementById('generateButton');
+            const buttonText = document.getElementById('buttonText');
+            const buttonSpinner = document.getElementById('buttonSpinner');
+
+            // Output elements
+            const captionOutput = document.getElementById('captionOutput');
+            const hashtagsOutput = document.getElementById('hashtagsOutput');
+            const imagePromptOutput = document.getElementById('imagePromptOutput');
+            const analysisScore = document.getElementById('analysisScore');
+            const analysisProgressBar = document.getElementById('analysisProgressBar');
+            const analysisTips = document.getElementById('analysisTips');
+
+            // 1. Handle Form Submission
+            contentForm.addEventListener('submit', (e) => {
+                e.preventDefault(); 
+                const topic = document.getElementById('topicInput').value;
+                const platform = document.getElementById('platformSelect').value;
+                const tone = document.getElementById('toneSelect').value;
+
+                loadingSpinner.style.display = 'block';
+                resultsCard.style.display = 'none';
+                resultsCard.classList.remove('animate__animated', 'animate__fadeInUp');
+                buttonText.style.display = 'none';
+                buttonSpinner.style.display = 'inline-block';
+                generateButton.disabled = true;
+
+                console.log("Sending to AI Agent:", { topic, platform, tone });
+
+                setTimeout(() => {
+                    const mockApiResponse = {
+                        caption: `🚀 Ready to 10x your productivity?\n\nIt's not about working harder, it's about working smarter. Here are 3 productivity hacks you can start TODAY:\n\n1️⃣ The 2-Minute Rule: If a task takes less than 2 minutes, do it immediately. (David Allen)\n\n2️⃣ Eat the Frog: Tackle your biggest, most important task first thing in the morning.\n\n3️⃣ Time Blocking: Schedule your day in blocks, including breaks! This creates focus and urgency.\n\nWhich hack will you try first? Let me know in the comments! 👇\n\n#Productivity #ProductivityHacks #GettingThingsDone #WorkSmarter #SuccessMindset #TechLife`,
+                        hashtags: ["Productivity", "ProductivityHacks", "GTD", "WorkSmarter", "Success", "Mindset", "Tech", "StartupLife", "Efficiency"],
+                        image_prompt: "A sleek, minimalist digital art piece. A brain made of glowing blue circuit lines on the left, and a pristine, organized calendar grid on the right. A bright arrow moves from the brain to the calendar, symbolizing focused action. Dark background, cinematic lighting, 4K.",
+                        analysis: {
+                            score: 92,
+                            tips: [
+                                { icon: '✅', text: 'Strong hook with an engaging question.' },
+                                { icon: '✅', text: 'Uses emojis and list format for high readability.' },
+                                { icon: '✅', text: 'Includes a clear Call to Action (CTA).' },
+                                { icon: '✅', text: 'Excellent use of relevant, popular hashtags.' }
+                            ]
+                        }
+                    };
+
+                    captionOutput.innerText = mockApiResponse.caption;
+                    imagePromptOutput.innerText = mockApiResponse.image_prompt;
+                    analysisScore.innerText = `${mockApiResponse.analysis.score}%`;
+                    
+                    analysisProgressBar.style.width = `${mockApiResponse.analysis.score}%`;
+                    analysisProgressBar.setAttribute('aria-valuenow', mockApiResponse.analysis.score);
+
+                    hashtagsOutput.innerHTML = '';
+                    mockApiResponse.hashtags.forEach(tag => {
+                        const badge = document.createElement('span');
+                        badge.className = 'hashtag-badge';
+                        badge.innerText = `#${tag}`;
+                        hashtagsOutput.appendChild(badge);
+                    });
+
+                    analysisTips.innerHTML = '';
+                    mockApiResponse.analysis.tips.forEach(tip => {
+                        const li = document.createElement('li');
+                        li.className = 'mb-2';
+                        li.innerHTML = `${tip.icon} ${tip.text}`;
+                        analysisTips.appendChild(li);
+                    });
+
+                    loadingSpinner.style.display = 'none';
+                    resultsCard.style.display = 'block';
+                    resultsCard.classList.add('animate__animated', 'animate__fadeInUp');
+                    
+                    buttonText.style.display = 'inline-block';
+                    buttonSpinner.style.display = 'none';
+                    generateButton.disabled = false;
+
+                }, 2500); 
+            });
+
+            // 2. Handle all "Copy" buttons
+            document.querySelectorAll('.btn-copy').forEach(button => {
+                button.addEventListener('click', () => {
+                    const targetId = button.dataset.copyTarget;
+                    const targetElement = document.querySelector(targetId);
+                    let textToCopy = '';
+
+                    if (button.dataset.copyType === 'hashtags') {
+                        const badges = targetElement.querySelectorAll('.hashtag-badge');
+                        const tags = Array.from(badges).map(b => b.innerText);
+                        textToCopy = tags.join(' ');
+                    } else {
+                        textToCopy = targetElement.innerText;
+                    }
+
+                    navigator.clipboard.writeText(textToCopy).then(() => {
+                        copyToast.show();
+                    }).catch(err => {
+                        console.error('Failed to copy text: ', err);
+                    });
+                });
+            });
+
+        });
+    </script>
+</body>
+</html>
