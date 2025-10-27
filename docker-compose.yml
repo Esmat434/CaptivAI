@@ -12,13 +12,6 @@ services:
       - ./.env
     restart: unless-stopped
   
-  redis:
-    image: redis:7-alpine
-    container_name: redis
-    ports:
-      - "6380:6379"
-    restart: unless-stopped
-  
   backend:
     build: .
     image: captivai
@@ -35,21 +28,6 @@ services:
     depends_on:
       - db
       - redis
-    restart: unless-stopped
-  
-  celery:
-    build: .
-    image: celery
-    container_name: celery
-    command: celery -A CaptivAI worker --loglevel=INFO
-    volumes:
-      - static_volume:/src/app/staticfiles
-      - media_volume:/src/app/media
-    depends_on:
-      - backend
-      - redis
-    env_file:
-      - ./.env
     restart: unless-stopped
   
   nginx:
