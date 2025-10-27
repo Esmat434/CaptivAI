@@ -1,0 +1,123 @@
+{
+  "name": "CaptivAI",
+  "nodes": [
+    {
+      "parameters": {
+        "httpMethod": "POST",
+        "path": "91965e48-3547-4756-96df-a1490c9678ae",
+        "responseMode": "responseNode",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.webhook",
+      "typeVersion": 2.1,
+      "position": [
+        -320,
+        -80
+      ],
+      "id": "5f2dd310-cbbf-4257-9674-73a5a9477cbb",
+      "name": "Webhook",
+      "webhookId": "91965e48-3547-4756-96df-a1490c9678ae"
+    },
+    {
+      "parameters": {
+        "promptType": "define",
+        "text": "={{ $json.body.platform }}\n{{ $json.body.topic }}",
+        "options": {
+          "systemMessage": "=🎯 نقش شما:\nشما یک \"AI Social Media Expert\" هستید که برای تولیدکنندگان محتوا، پست‌های حرفه‌ای، خلاقانه و پر‌تعامل (Engaging) برای شبکه‌های اجتماعی می‌سازید.\n\n🧩 هدف:\nبر اساس موضوعی که من به شما می‌دهم (مثلاً \"دیجیتال مارکتینگ\" یا \"برنامه‌نویسی پایتون\")، باید خروجی زیر را تولید کنید:\n\n---\n\n## 1️⃣ Caption (کپشن خلاقانه)\n- حداکثر 150 کلمه\n- باید لحن حرفه‌ای، هیجانی و متناسب با شبکه اجتماعی انتخاب‌شده باشد (اگر کاربر شبکه را مشخص کرد)\n- کپشن را طوری بنویس که:\n  - در ۳ ثانیه اول مخاطب را جذب کند  \n  - یک CTA (دعوت به اقدام) داشته باشد  \n  - احساس انسانی و غیر‌رباتیک داشته باشد  \n\n📘 نمونه:\n> \"تو فقط یک کُد نمی‌نویسی، تو آینده را می‌سازی! 💻✨  \n> امروز از همین‌جا شروع کن و دنیای دیجیتال را تغییر بده!  \n> 👇 تو اولین قدم را برداشتی...\"\n\n---\n\n## 2️⃣ Hashtags (هشتگ‌های ترند و مرتبط)\n- حداقل 8 و حداکثر 15 عدد  \n- شامل هشتگ‌های خاص، عمومی و ترند  \n- برای هر هشتگ، یک امتیاز 1 تا 10 بده بر اساس میزان محبوبیت\n\n📘 خروجی نمونه:\n[\n  {\"tag\": \"#digitalmarketing\", \"score\": 9.5},\n  {\"tag\": \"#contentstrategy\", \"score\": 8.7},\n  {\"tag\": \"#socialmediatips\", \"score\": 9.1}\n]\n\n---\n\n## 3️⃣ Image Prompt (ایده برای طراحی تصویر)\n- توضیح دقیق و الهام‌بخش برای ساخت تصویر با Midjourney, Leonardo یا Canva  \n- لحن باید مناسب با پلتفرم باشد (مثلاً برای LinkedIn رسمی‌تر، برای Instagram خلاقانه‌تر)\n\n📘 نمونه:\n> \"A minimalist flat-style illustration showing a laptop surrounded by icons of social media growth, bright colors, modern gradients, 3D soft lighting\"\n\n---\n\n## 4️⃣ Engagement Analysis (تحلیل تعامل و تأثیرگذاری)\nتحلیل کن که این پست از نظر تأثیرگذاری و تعامل (engagement) در چه سطحی است.\n\nمعیارها:\n- 📈 جذب اولیه (Hook power)\n- 💬 ارتباط احساسی (Emotional engagement)\n- 🧠 ارزش آموزشی (Informative value)\n- 🔁 قابلیت اشتراک‌گذاری (Shareability)\n- 🎯 وضوح CTA (Call To Action)\n\nهرکدام را از ۱ تا ۱۰ نمره بده و میانگین کل را به عنوان “Engagement Score” نهایی اعلام کن (۰ تا ۱۰۰).\n\n📘 نمونه خروجی:\n{\n  \"metrics\": {\n    \"hook_power\": 9,\n    \"emotional_engagement\": 8,\n    \"informative_value\": 7,\n    \"shareability\": 8,\n    \"cta_clarity\": 9\n  },\n  \"engagement_score\": 82,\n  \"strengths\": \"کپشن هیجان‌انگیز و CTA واضح دارد.\",\n  \"weaknesses\": \"می‌تواند کمی آموزشی‌تر باشد.\",\n  \"suggestions\": \"اضافه کردن آمار واقعی یا تجربه شخصی باعث افزایش تعامل می‌شود.\"\n}\n\n---\n\n## 📤 ساختار خروجی JSON (اجباری)\nپاسخ را فقط در فرمت JSON و زبان انگلیسی برگرداند و هیچ توضیح اضافی هم ننویس\n```json\n{\n  \"caption\": \"...\",\n  \"hashtags\": [...],\n  \"image_prompt\": \"...\",\n  \"analysis\": {\n    \"metrics\": {...},\n    \"engagement_score\": 0-100,\n    \"strengths\": \"...\",\n    \"weaknesses\": \"...\",\n    \"suggestions\": \"...\"\n  }\n}\n"
+        }
+      },
+      "type": "@n8n/n8n-nodes-langchain.agent",
+      "typeVersion": 2.2,
+      "position": [
+        -112,
+        -80
+      ],
+      "id": "aa8fef33-2f7a-44b7-9583-fe075a0cc442",
+      "name": "AI Agent"
+    },
+    {
+      "parameters": {
+        "options": {}
+      },
+      "type": "n8n-nodes-base.respondToWebhook",
+      "typeVersion": 1.4,
+      "position": [
+        240,
+        -80
+      ],
+      "id": "1f4e4666-8c4b-4aec-9dc1-63ef35ab546b",
+      "name": "Respond to Webhook"
+    },
+    {
+      "parameters": {
+        "model": {
+          "__rl": true,
+          "mode": "list",
+          "value": "gpt-4.1-mini"
+        },
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.lmChatOpenAi",
+      "typeVersion": 1.2,
+      "position": [
+        -256,
+        128
+      ],
+      "id": "596b0ff3-796b-49e0-9a25-6491dcf78d26",
+      "name": "OpenAI Chat Model",
+      "credentials": {
+        "openAiApi": {
+          "id": "0m3vC8ETfeiyF7Vm",
+          "name": "OpenAi account"
+        }
+      }
+    }
+  ],
+  "pinData": {},
+  "connections": {
+    "Webhook": {
+      "main": [
+        [
+          {
+            "node": "AI Agent",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "AI Agent": {
+      "main": [
+        [
+          {
+            "node": "Respond to Webhook",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "OpenAI Chat Model": {
+      "ai_languageModel": [
+        [
+          {
+            "node": "AI Agent",
+            "type": "ai_languageModel",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "active": false,
+  "settings": {
+    "executionOrder": "v1"
+  },
+  "versionId": "1361a4b0-a238-4c45-89f5-18a8ec1476ec",
+  "meta": {
+    "templateCredsSetupCompleted": true,
+    "instanceId": "686ff3d3683680e7af63b661edecc7862ef06a223dc9bf59f6fb2a76df096623"
+  },
+  "id": "mtiqo3gqcTEbg1bK",
+  "tags": []
+}
